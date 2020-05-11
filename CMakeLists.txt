@@ -36,7 +36,9 @@ find_file(RAPIDJSONTEST NAMES rapidjson rapidjson-1.1.0 PATHS ${CMAKE_CURRENT_SO
 if (NOT RAPIDJSONTEST)
     message("no rapidjson, download")
     set(RJ_TAR_FILE ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/v1.1.0.tar.gz)
-    file(DOWNLOAD https://github.com/miloyip/rapidjson/archive/v1.1.0.tar.gz ${RJ_TAR_FILE})
+    file(DOWNLOAD https://github.com/miloyip/rapidjson/archive/v1.1.0.tar.gz ${RJ_TAR_FILE}
+		EXPECTED_HASH SHA512=2e82a4bddcd6c4669541f5945c2d240fb1b4fdd6e239200246d3dd50ce98733f0a4f6d3daa56f865d8c88779c036099c52a9ae85d47ad263686b68a88d832dff
+	)
     execute_process(
         COMMAND ${CMAKE_COMMAND} -E tar xzf ${RJ_TAR_FILE}
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty
