@@ -410,10 +410,10 @@ extern "C" DISCORD_EXPORT void Discord_RunCallbacks(void)
     bool wasDisconnected = WasJustDisconnected.exchange(false);
     bool isConnected = Connection->IsOpen();
 
-    if (isConnected) {
+    if (isConnected && wasDisconnected) {
         // if we are connected, disconnect cb first
         std::lock_guard<std::mutex> guard(HandlerMutex);
-        if (wasDisconnected && Handlers.disconnected) {
+        if (Handlers.disconnected) {
             Handlers.disconnected(LastDisconnectErrorCode, LastDisconnectErrorMessage);
         }
     }
@@ -467,10 +467,10 @@ extern "C" DISCORD_EXPORT void Discord_RunCallbacks(void)
         JoinAskQueue.CommitSend();
     }
 
-    if (!isConnected) {
+    if (!isConnected && wasDisconnected) {
         // if we are not connected, disconnect message last
         std::lock_guard<std::mutex> guard(HandlerMutex);
-        if (wasDisconnected && Handlers.disconnected) {
+        if (Handlers.disconnected) {
             Handlers.disconnected(LastDisconnectErrorCode, LastDisconnectErrorMessage);
         }
     }
