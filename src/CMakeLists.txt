@@ -120,9 +120,9 @@ if (${BUILD_SHARED_LIBS})
     target_compile_definitions(discord-rpc PRIVATE -DDISCORD_BUILDING_SDK)
 endif(${BUILD_SHARED_LIBS})
 
-if (CLANG_FORMAT_CMD)
+if (DISCORDRPC_ENABLE_CLANG_FORMAT AND CLANG_FORMAT_CMD)
     add_dependencies(discord-rpc clangformat)
-endif(CLANG_FORMAT_CMD)
+endif(DISCORDRPC_ENABLE_CLANG_FORMAT AND CLANG_FORMAT_CMD)
 
 # install
 
