@@ -55,6 +55,10 @@ if(WIN32)
             /wd4946 # reinterpret_cast used between related classes
             /wd5027 # move assignment operator was implicitly defined as deleted
         )
+        # Needed because of RapidJSON:
+		target_compile_options(discord-rpc PRIVATE
+            /wd5045 # Compiler will insert Spectre mitigation for memory load if /Qspectre switch specified
+        )
         if(CMAKE_VS_PLATFORM_NAME MATCHES "^[Aa][Rr][Mm]64$")
             target_compile_definitions(discord-rpc PRIVATE "RAPIDJSON_ENDIAN=0") # RAPIDJSON_LITTLEENDIAN
         endif()
